@@ -3,7 +3,7 @@ defmodule SimpleChat.Domain.Model.User do
 
   alias SimpleChat.Domain.Service.ChatUsers, as: ChatUsersService
 
-  @type user :: %__MODULE__{}
+  @type t :: %__MODULE__{}
 
   defstruct login: nil
 

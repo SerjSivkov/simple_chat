@@ -10,7 +10,7 @@ defmodule SimpleChat.Infrastructure.Repository.Chat do
     |> result_or_error
   end
 
-  @spec add(Chat.chat()) :: true
+  @spec add(Chat.t()) :: true
   def add(%Chat{id: id} = chat), do: :ets.insert(@table, {id, chat})
 
   @spec delete(String.t()) :: true
