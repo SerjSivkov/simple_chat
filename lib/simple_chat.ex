@@ -1,18 +1,24 @@
 defmodule SimpleChat do
-  @moduledoc """
-  Documentation for `SimpleChat`.
-  """
+  @moduledoc false
 
-  @doc """
-  Hello world.
+  alias SimpleChat.Domain.Service.Chat, as: ChatService
+  alias SimpleChat.Domain.Service.User, as: UserService
 
-  ## Examples
+  @spec run :: no_return
+  def run() do
+    loop()
+  end
 
-      iex> SimpleChat.hello()
-      :world
+  @spec loop :: no_return
+  def loop() do
+    receive do
+      {:new_chat, name} ->
+        ChatService.add(name)
 
-  """
-  def hello do
-    :world
+      {:new_user, login} ->
+        UserService.add(login)
+    end
+
+    loop()
   end
 end
