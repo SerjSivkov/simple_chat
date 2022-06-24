@@ -10,16 +10,16 @@ defmodule SimpleChat.Domain.Model.Chat do
 
   @chat_user_service ChatUsersService
 
-  @spec new(any) :: __MODULE__.chat()
+  @spec new(any) :: __MODULE__.t()
   def new(name), do: %__MODULE__{name: name, id: generate_id()}
 
-  @spec get_users(__MODULE__.chat()) :: []
+  @spec get_users(__MODULE__.t()) :: {:error, :not_found} | {:ok, [SimpleChat.Domain.Model.User.t(), ...]}
   def get_users(%__MODULE__{id: id}), do: @chat_user_service.get_users_in_chat(id)
 
-  @spec join_chat(User.user(), binary()) :: {:ok, true} | {:error, binary()}
+  @spec join_chat(User.t(), binary) :: :ok | {:error, :not_found}
   def join_chat(%User{} = user, chat_id), do: @chat_user_service.add_user_to_chat(user, chat_id)
 
-  @spec leave_chat(User.user(), binary()) :: {:ok, true} | {:error, binary()}
+  @spec leave_chat(User.t(), binary) :: true
   def leave_chat(%User{} = user, chat_id), do: @chat_user_service.remove_user_from_chat(user, chat_id)
 
   defp generate_id() do
