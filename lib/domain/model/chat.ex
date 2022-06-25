@@ -16,8 +16,8 @@ defmodule SimpleChat.Domain.Model.Chat do
   @spec get_users(__MODULE__.t()) :: {:error, :not_found} | {:ok, [SimpleChat.Domain.Model.User.t(), ...]}
   def get_users(%__MODULE__{id: id}), do: @chat_user_service.get_users_in_chat(id)
 
-  @spec join_chat(User.t(), binary) :: :ok | {:error, :not_found}
-  def join_chat(%User{} = user, chat_id), do: @chat_user_service.add_user_to_chat(user, chat_id)
+  @spec join_chat(binary(), binary) :: :ok | {:error, :not_found}
+  def join_chat(user_login, chat_id), do: @chat_user_service.add_user_to_chat(user_login, chat_id)
 
   @spec leave_chat(User.t(), binary) :: true
   def leave_chat(%User{} = user, chat_id), do: @chat_user_service.remove_user_from_chat(user, chat_id)
