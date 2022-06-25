@@ -19,8 +19,7 @@ defmodule SimpleChat.Infrastructure.Repository.UserChats do
   def remove_chat(%UserModel{login: login}, chat_id) do
     case get(login) do
       {:ok, chats} ->
-        new_chats =
-          Enum.filter(chats, &(&1 != chat_id))
+        new_chats = Enum.filter(chats, &(&1 != chat_id))
         :ets.insert(@table, {login, new_chats})
     end
   end

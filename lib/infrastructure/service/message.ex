@@ -1,4 +1,4 @@
-defmodule SimpleChat.Domain.Service.Message do
+defmodule SimpleChat.Infrastructure.Service.Message do
   require Logger
 
   alias SimpleChat.Domain.Service.Chat, as: ChatService
@@ -31,8 +31,8 @@ defmodule SimpleChat.Domain.Service.Message do
     Logger.error("unexpected message #{inspect(msg)}")
   end
 
-  @spec send_meassage_to_user(binary(), ChatModel.t(), UserModel.t(), binary()) :: :ok
-  def send_meassage_to_user(message, chat, user_from, user_to) do
+  @spec send_message_to_user(binary(), ChatModel.t(), UserModel.t(), binary()) :: :ok
+  def send_message_to_user(message, chat, user_from, user_to) do
     Logger.debug(
       "message from user #{user_from.login}\nin chat #{chat.name}\nneed update chat for user #{user_to.login}\n
       text:\n#{message}"

@@ -4,7 +4,7 @@ defmodule SimpleChat.Infrastructure.Repository.Chat do
 
   @table chats_table()
 
-  @spec get(String.t()) :: {:error, :not_found} | {:ok, Chat.chat()}
+  @spec get(String.t()) :: {:error, :not_found} | {:ok, Chat.t()}
   def get(id) do
     :ets.lookup(@table, id)
     |> result_or_error

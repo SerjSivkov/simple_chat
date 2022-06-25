@@ -1,5 +1,6 @@
 defmodule SimpleChat.Infrastructure.Repository.ChatUsers do
-  import SimpleChat.Infrastructure.Repository.Base, only: [chat_users_table, 0]
+  import SimpleChat.Infrastructure.Repository.Base, only: [chat_users_table: 0]
+
   @table chat_users_table()
 
   import SimpleChat.Infrastructure.Repository.Base
@@ -18,14 +19,16 @@ defmodule SimpleChat.Infrastructure.Repository.ChatUsers do
     case get(chat_id) do
       {:ok, users} ->
         new_users = Enum.filter(users, &(&1 != login))
-        :ets.insert(@table, {chart_id, new_users})
+
+        :ets.insert(@table, {chat_id, new_users})
+
       _ -> true
     end
   end
 
   @spec get(binary()) :: {:error, :not_found} | {:ok, [User.t(), ...]}
-  def get(chart_id) do
-    :ets.lookup(@table, chart_id) |> result_or_error()
+  def get(chat_id) do
+    :ets.lookup(@table, chat_id) |> result_or_error()
   end
 
   defp add_user_to_chat([], chat_id, user_login) do

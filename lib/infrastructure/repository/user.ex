@@ -4,7 +4,7 @@ defmodule SimpleChat.Infrastructure.Repository.User do
 
   @table users_table()
 
-  @spec get(String.t()) :: {:error, :not_found} | {:ok, User.t()}
+  @spec get(String.t()) :: {:error, atom()} | {:ok, User.t()}
   def get(login) do
     :ets.lookup(@table, login)
     |> result_or_error
