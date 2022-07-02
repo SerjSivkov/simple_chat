@@ -19,8 +19,10 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/simple_chat](https://hexdocs.pm/simple_chat).
 
+```elixir
 pid = SimpleChat.run()
 send(pid, {:new_user, "test_user"})
 send(pid, {:new_chat, "test_chat"})
 send(pid, {:join_chat, "test_user", :ets.first(:chats)})
 send(pid, {:send_message_to_chat, "test message", :ets.first(:chats), "test_user"})
+```
