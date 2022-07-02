@@ -35,20 +35,27 @@ defmodule SimpleChat do
 
   @spec send_message(atom | pid | port | {atom, atom}, String.t(), String.t(), String.t()) ::
           atom | pid | port | {atom, atom}
-  def send_message(pid, message, chat_id, frtom_user_login) do
-    send(pid, {:send_message_to_chat, message, chat_id, frtom_user_login})
+  def send_message(pid, message, chat_id, from_user_login) do
+    send(pid, {:send_message_to_chat, message, chat_id, from_user_login})
     pid
   end
 
   def test_it do
     pid = run()
-    new_user(pid, "test")
-    :timer.sleep(200)
     new_chat(pid, "test_chat")
     :timer.sleep(200)
-    join_chat(pid, "test", :ets.first(:chats))
+
+    new_user(pid, "test_user1")
     :timer.sleep(200)
-    send_message(pid, "test message", :ets.first(:chats), "test")
+    new_user(pid, "test_user2")
+    :timer.sleep(200)
+
+    join_chat(pid, "test_user1", :ets.first(:chats))
+    :timer.sleep(200)
+    join_chat(pid, "test_user2", :ets.first(:chats))
+    :timer.sleep(200)
+
+    send_message(pid, "test message", :ets.first(:chats), "test_user1")
   end
 
   @spec run :: no_return

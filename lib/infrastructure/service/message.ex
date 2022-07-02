@@ -31,7 +31,7 @@ defmodule SimpleChat.Infrastructure.Service.Message do
     Logger.error("unexpected message #{inspect(msg)}")
   end
 
-  @spec send_message_to_user(binary(), ChatModel.t(), UserModel.t(), binary()) :: :ok
+  @spec send_message_to_user(binary(), ChatModel.t(), UserModel.t(), any()) :: :ok
   def send_message_to_user(message, chat, user_from, user_to) do
     Logger.debug(
       "message from user #{user_from.login}\nin chat #{chat.name}\nneed update chat for user #{user_to.login}\n

@@ -23,9 +23,12 @@ defmodule SimpleChat.Domain.Service.ChatUsers do
     end
   end
 
-  @spec remove_user_from_chat(User.t(), binary) :: true
-  def remove_user_from_chat(user, chat_id) do
-    Repo.ChatUsers.remove_user(user, chat_id)
-    Repo.UserChats.remove_chat(user, chat_id)
+  @spec remove_user_from_chat(binary, binary) :: true
+  def remove_user_from_chat(user_login, chat_id) do
+    with {:ok, _chat} <- ChatRepo.get(chat_id),
+         {:ok, user} <- UserRepo.get(user_login) do
+      Repo.ChatUsers.remove_user(user, chat_id)
+      Repo.UserChats.remove_chat(user, chat_id)
+    end
   end
 end
